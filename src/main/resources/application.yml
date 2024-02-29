@@ -1,0 +1,26 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /danstar-blog/api/v1
+
+spring:
+  application:
+    name: danstar-blog
+  datasource:
+    # postgresql
+    url: jdbc:postgresql://localhost:5432/danstar_blog
+    username: postgres
+    password: 123456
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs  # 默认为 "/v3/api-docs"
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui/index.html # 默认为"/swagger-ui/index.html"
+
