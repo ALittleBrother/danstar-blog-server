@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/account")
-@Tag(name = "账户", description = "账户相关接口")
+@Tag(name = "AccountController", description = "账户相关接口")
 public class AccountController {
 
     private AccountService accountService;
@@ -53,6 +53,12 @@ public class AccountController {
     @PostMapping("/search")
     @Operation(summary = "查询账户列表")
     public ResponseEntity<PageEntity<AccountListResp>> queryList(@RequestBody AccountSearchReq req) {
-        return ResponseEntity.ok(new PageEntity<>(accountService.queryList(req)));
+        return ResponseEntity.ok(new PageEntity<>(accountService.list(req)));
+    }
+
+    @PostMapping("/login")
+    @Operation(summary = "账户登录")
+    public ResponseEntity<AccountLoginResp> login(@Valid@RequestBody AccountLoginReq req) {
+        return ResponseEntity.ok(accountService.login(req));
     }
 }

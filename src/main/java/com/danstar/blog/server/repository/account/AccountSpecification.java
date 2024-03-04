@@ -1,4 +1,4 @@
-package com.danstar.blog.server.repository;
+package com.danstar.blog.server.repository.account;
 
 import com.danstar.blog.server.entity.Account;
 import org.springframework.data.jpa.domain.Specification;

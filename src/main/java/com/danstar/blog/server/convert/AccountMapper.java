@@ -1,10 +1,7 @@
 package com.danstar.blog.server.convert;
 
 import com.danstar.blog.server.entity.Account;
-import com.danstar.blog.server.vo.account.AccountAddReq;
-import com.danstar.blog.server.vo.account.AccountDetailResp;
-import com.danstar.blog.server.vo.account.AccountListResp;
-import com.danstar.blog.server.vo.account.AccountUpdateReq;
+import com.danstar.blog.server.vo.account.*;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -25,4 +22,6 @@ public interface AccountMapper {
     void toEntity(AccountUpdateReq req, @MappingTarget Account account);
 
     AccountListResp toListResp(Account account);
+
+    AccountLoginResp toLoginResp(Account account);
 }

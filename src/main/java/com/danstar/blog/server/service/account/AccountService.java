@@ -39,5 +39,10 @@ public interface AccountService {
     /**
      * 查询列表
      */
-    Page<AccountListResp> queryList(AccountSearchReq req);
+    Page<AccountListResp> list(AccountSearchReq req);
+
+    /**
+     * 登录
+     */
+    AccountLoginResp login(AccountLoginReq req);
 }

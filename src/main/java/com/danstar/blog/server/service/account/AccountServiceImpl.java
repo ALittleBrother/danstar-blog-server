@@ -2,9 +2,10 @@ package com.danstar.blog.server.service.account;
 
 import com.danstar.blog.server.convert.AccountMapper;
 import com.danstar.blog.server.entity.Account;
+import com.danstar.blog.server.infrastructure.exception.BusinessException;
 import com.danstar.blog.server.infrastructure.exception.ResourceNotFoundException;
-import com.danstar.blog.server.repository.AccountRepository;
-import com.danstar.blog.server.repository.AccountSpecification;
+import com.danstar.blog.server.repository.account.AccountRepository;
+import com.danstar.blog.server.repository.account.AccountSpecification;
 import com.danstar.blog.server.vo.account.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -100,8 +102,32 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Page<AccountListResp> queryList(AccountSearchReq req) {
+    public Page<AccountListResp> list(AccountSearchReq req) {
         Page<Account> accountPage = this.query(req);
         return accountPage.map(AccountMapper.mapper::toListResp);
+    }
+
+    @Override
+    public AccountLoginResp login(AccountLoginReq req) {
+        if (!req.getVerifyCode().equals("3738")) {
+            throw new BusinessException("验证码错误");
+        }
+
+        Account account = accountRepository.findByUsername(req.getUsername())
+                .orElseThrow(() -> new BusinessException("用户名或密码错误"));
+
+        if (!account.getPassword().equals(req.getPassword())) {
+            throw new BusinessException("用户名或密码错误");
+        }
+
+        AccountLoginResp loginResp = AccountMapper.mapper.toLoginResp(account);
+        loginResp.setRoles(new ArrayList<>());
+        loginResp.getRoles().add("admin");
+        loginResp.setAccessToken("token");
+        loginResp.setExpires(LocalDateTime.now().plusDays(1));
+        loginResp.setRefreshToken("refreshToken");
+        loginResp.setRefreshExpires(LocalDateTime.now().plusDays(7));
+
+        return loginResp;
     }
 }

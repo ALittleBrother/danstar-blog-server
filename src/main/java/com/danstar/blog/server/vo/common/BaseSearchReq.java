@@ -1,6 +1,7 @@
 package com.danstar.blog.server.vo.common;
 
 import com.danstar.blog.server.infrastructure.validation.group.SearchOperation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -32,10 +33,24 @@ public class BaseSearchReq {
     private String sortMethod;
 
     // 获取排序，默认按照updateTime降序
+    @JsonIgnore
     public Sort getSort() {
-        if (sortField == null || sortMethod == null) {
+        // 如果排序字段和排序方法都未指定，使用默认值
+        if (sortField == null && sortMethod == null) {
             return Sort.by(Sort.Direction.DESC, "updateTime");
         }
+
+        // 如果只指定了排序方法，默认排序字段为"updateTime"
+        if (sortField == null) {
+            return Sort.by(Sort.Direction.fromString(sortMethod), "updateTime");
+        }
+
+        // 如果只指定了排序字段，默认排序方法为降序
+        if (sortMethod == null) {
+            return Sort.by(Sort.Direction.DESC, sortField);
+        }
+
+        // 如果都指定了，按照指定的排序字段和方法排序
         return Sort.by(Sort.Direction.fromString(sortMethod), sortField);
     }
 }

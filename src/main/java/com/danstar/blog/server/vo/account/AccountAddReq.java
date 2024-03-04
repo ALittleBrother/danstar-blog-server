@@ -11,17 +11,17 @@ import lombok.Data;
 public class AccountAddReq {
 
     @NotBlank(message = "用户名不能为空", groups = CreateOperation.class)
-    @Size(min = 4, max = 16, message = "用户名长度范围：2-16")
+    @Size(min = 4, max = 16, message = "用户名长度范围：4-16")
     @Schema(description = "用户名")
     private String username;
 
     @NotBlank(message = "密码不能为空", groups = CreateOperation.class)
-    @Size(min = 8, max = 32, message = "用户名长度范围：8-32")
+    @Size(min = 8, max = 32, message = "密码长度范围：8-32")
     @Schema(description = "密码")
     private String password;
 
     @NotBlank(message = "昵称不能为空")
-    @Size(min = 4, max = 16, message = "昵称长度范围：2-16")
+    @Size(min = 2, max = 16, message = "昵称长度范围：2-16")
     @Schema(description = "昵称")
     private String nickname;
 }
