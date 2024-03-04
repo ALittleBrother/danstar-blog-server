@@ -1,5 +1,6 @@
 package com.danstar.blog.server.controller;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.danstar.blog.server.infrastructure.validation.group.CreateOperation;
 import com.danstar.blog.server.service.account.AccountService;
 import com.danstar.blog.server.vo.account.*;
@@ -59,6 +60,15 @@ public class AccountController {
     @PostMapping("/login")
     @Operation(summary = "账户登录")
     public ResponseEntity<AccountLoginResp> login(@Valid@RequestBody AccountLoginReq req) {
-        return ResponseEntity.ok(accountService.login(req));
+        AccountLoginResp loginResp = accountService.login(req);
+        StpUtil.login(loginResp.getId());
+        return ResponseEntity.ok(loginResp);
+    }
+
+    @PostMapping("/logout")
+    @Operation(summary = "账户登出")
+    public ResponseEntity<Void> logout() {
+        StpUtil.logout();
+        return ResponseEntity.ok();
     }
 }

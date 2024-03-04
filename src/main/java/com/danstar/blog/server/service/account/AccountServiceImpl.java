@@ -1,5 +1,6 @@
 package com.danstar.blog.server.service.account;
 
+import cn.dev33.satoken.secure.BCrypt;
 import com.danstar.blog.server.convert.AccountMapper;
 import com.danstar.blog.server.entity.Account;
 import com.danstar.blog.server.infrastructure.exception.BusinessException;
@@ -42,6 +43,8 @@ public class AccountServiceImpl implements AccountService {
         }
 
         Account account = AccountMapper.mapper.toEntity(req);
+        String hashPW = BCrypt.hashpw(account.getPassword(), BCrypt.gensalt());
+        account.setPassword(hashPW);
         accountRepository.save(account);
     }
 
@@ -116,7 +119,7 @@ public class AccountServiceImpl implements AccountService {
         Account account = accountRepository.findByUsername(req.getUsername())
                 .orElseThrow(() -> new BusinessException("用户名或密码错误"));
 
-        if (!account.getPassword().equals(req.getPassword())) {
+        if (!BCrypt.checkpw(req.getPassword(), account.getPassword())) {
             throw new BusinessException("用户名或密码错误");
         }
 
