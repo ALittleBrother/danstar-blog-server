@@ -45,4 +45,9 @@ public interface AccountService {
      * 登录
      */
     AccountLoginResp login(AccountLoginReq req);
+
+    /**
+     * 登出
+     */
+    void logout();
 }

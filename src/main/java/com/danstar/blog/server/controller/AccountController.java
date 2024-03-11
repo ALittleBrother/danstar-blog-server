@@ -61,14 +61,13 @@ public class AccountController {
     @Operation(summary = "账户登录")
     public ResponseEntity<AccountLoginResp> login(@Valid@RequestBody AccountLoginReq req) {
         AccountLoginResp loginResp = accountService.login(req);
-        StpUtil.login(loginResp.getId());
         return ResponseEntity.ok(loginResp);
     }
 
     @PostMapping("/logout")
     @Operation(summary = "账户登出")
     public ResponseEntity<Void> logout() {
-        StpUtil.logout();
+        accountService.logout();
         return ResponseEntity.ok();
     }
 }

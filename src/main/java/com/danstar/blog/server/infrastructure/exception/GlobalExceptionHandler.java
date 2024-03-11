@@ -1,5 +1,6 @@
 package com.danstar.blog.server.infrastructure.exception;
 
+import cn.dev33.satoken.exception.NotLoginException;
 import com.danstar.blog.server.vo.common.ResponseEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -73,6 +74,14 @@ public class GlobalExceptionHandler {
             list.add(map);
         }
         return ResponseEntity.fail(400, "参数错误", list);
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    @ExceptionHandler(NotLoginException.class)
+    public ResponseEntity<Void> handleNotLoginException(NotLoginException e) {
+        log.error("未登录", e);
+        return ResponseEntity.fail(401, "未登录");
     }
 }
 

@@ -2,6 +2,7 @@ package com.danstar.blog.server.vo.account;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
@@ -23,4 +24,8 @@ public class AccountLoginReq {
     @Size(min = 4, max = 4, message = "验证码长度不合规范")
     @Schema(description = "验证码")
     private String verifyCode;
+
+    @Schema(description = "记住我")
+    @NotNull(message = "记住我不能为空")
+    private boolean rememberMe;
 }

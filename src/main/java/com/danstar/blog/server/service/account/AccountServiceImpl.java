@@ -1,6 +1,7 @@
 package com.danstar.blog.server.service.account;
 
 import cn.dev33.satoken.secure.BCrypt;
+import cn.dev33.satoken.stp.StpUtil;
 import com.danstar.blog.server.convert.AccountMapper;
 import com.danstar.blog.server.entity.Account;
 import com.danstar.blog.server.infrastructure.exception.BusinessException;
@@ -131,6 +132,13 @@ public class AccountServiceImpl implements AccountService {
         loginResp.setRefreshToken("refreshToken");
         loginResp.setRefreshExpires(LocalDateTime.now().plusDays(7));
 
+        StpUtil.login(account.getId(), req.isRememberMe());
+
         return loginResp;
+    }
+
+    @Override
+    public void logout() {
+        StpUtil.logout();
     }
 }
