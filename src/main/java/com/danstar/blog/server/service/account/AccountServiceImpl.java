@@ -9,6 +9,7 @@ import com.danstar.blog.server.infrastructure.exception.ResourceNotFoundExceptio
 import com.danstar.blog.server.repository.account.AccountRepository;
 import com.danstar.blog.server.repository.account.AccountSpecification;
 import com.danstar.blog.server.vo.account.*;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class AccountServiceImpl implements AccountService {
 
     private AccountRepository accountRepository;
