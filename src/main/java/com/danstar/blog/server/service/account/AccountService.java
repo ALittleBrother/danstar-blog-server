@@ -50,4 +50,14 @@ public interface AccountService {
      * 登出
      */
     void logout();
+
+    /**
+     * 生成验证码
+     */
+    CaptchaResp generateCaptcha();
+
+    /**
+     * 验证验证码
+     */
+    boolean validateCaptcha(String key, String code);
 }

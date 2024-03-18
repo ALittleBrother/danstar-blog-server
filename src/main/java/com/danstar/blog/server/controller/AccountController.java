@@ -1,6 +1,5 @@
 package com.danstar.blog.server.controller;
 
-import cn.dev33.satoken.stp.StpUtil;
 import com.danstar.blog.server.infrastructure.validation.group.CreateOperation;
 import com.danstar.blog.server.service.account.AccountService;
 import com.danstar.blog.server.vo.account.*;
@@ -69,5 +68,11 @@ public class AccountController {
     public ResponseEntity<Void> logout() {
         accountService.logout();
         return ResponseEntity.ok();
+    }
+
+    @GetMapping("/captcha")
+    @Operation(summary = "获取验证码")
+    public ResponseEntity<CaptchaResp> getCaptcha() {
+        return ResponseEntity.ok(accountService.generateCaptcha());
     }
 }

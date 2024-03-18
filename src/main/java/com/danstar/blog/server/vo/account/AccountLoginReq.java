@@ -25,6 +25,11 @@ public class AccountLoginReq {
     @Schema(description = "验证码")
     private String verifyCode;
 
+    @Schema(description = "验证码key")
+    @Size(max = 64, message = "验证码key长度不合规范")
+    @NotBlank(message = "验证码key不能为空")
+    private String verifyKey;
+
     @Schema(description = "记住我")
     @NotNull(message = "记住我不能为空")
     private boolean rememberMe;

@@ -8,10 +8,11 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class SaTokenConfigure implements WebMvcConfigurer {
+public class SaTokenConfig implements WebMvcConfigurer {
 
     private final String[] excludePathPatterns = {
             "/account/login",
+            "/account/captcha",
             "/api-docs/**",
             "/swagger-ui/**",
             "/file/download/**",
