@@ -11,5 +11,5 @@ public class CaptchaResp {
     private String imageBase64;
 
     @Schema(description = "验证码的key")
-    private String key;
+    private String captchaKey;
 }

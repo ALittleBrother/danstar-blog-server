@@ -20,9 +20,11 @@ public class CaptchaConfig {
         // 配置图片高度
         properties.setProperty("kaptcha.image.height", "32");
         // 配置字体大小
-        properties.setProperty("kaptcha.textproducer.font.size", "30");
+        properties.setProperty("kaptcha.textproducer.font.size", "25");
         // 配置文本长度
         properties.setProperty("kaptcha.textproducer.char.length", "4");
+        // 关闭外层边框
+        properties.setProperty("kaptcha.border", "no");
         Config config = new Config(properties);
         kaptcha.setConfig(config);
         return kaptcha;

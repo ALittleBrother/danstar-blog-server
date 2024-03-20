@@ -180,7 +180,7 @@ public class AccountServiceImpl implements AccountService {
         }
         // 将验证码文本存储在 redis 中，用于后续验证
         String captchaKey = CommonConstant.CAPTCHA_KEY_PREFIX + CommonUtils.generateUUID();
-        captchaResp.setKey(captchaKey);
+        captchaResp.setCaptchaKey(captchaKey);
         redisUtils.setValue(captchaKey, captchaText, 60 * 5L, TimeUnit.SECONDS);
         return captchaResp;
     }
